@@ -1,0 +1,12 @@
+{
+    "routes":
+            [
+                {"path": "/", "method": "get", "callback": "application#chatroom"}
+            ],
+    "websockets":
+            [
+                {"event": "newChatMsg", "callback": "chatroom#receiveMessage"}
+            ]
+}
+
+
