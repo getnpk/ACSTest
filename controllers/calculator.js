@@ -11,7 +11,7 @@ function add(req, res) {
 
     
     console.log("Result: " + result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
+//    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(200, {value : result});
     
 }
@@ -29,7 +29,7 @@ function sub(req, res) {
         result = one - two;
     
     console.log("Result: " + result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
+//    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(200, {value : result});
     
 }
@@ -48,7 +48,7 @@ function mul(req, res) {
         result = one * two;
     
     console.log("Result: " + result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
+//    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(200, {value : result});
     
 }
@@ -69,7 +69,7 @@ function div(req, res) {
         result = one / two;
     
     console.log("Result: " + result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
+//    res.setHeader("Access-Control-Allow-Origin", "*");
     res.send(200, {value : result});
     
 }
