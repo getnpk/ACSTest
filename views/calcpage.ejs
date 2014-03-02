@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      //establish websocket connection with server
+      var iosocket = io.connect('http://localhost:8080');
+      iosocket.on('connect', function () {
+      $('#incomingChatMessages').append($('<li class="alert">Connected</li>'));
+
+      //when received message from server
+      iosocket.on('message', function(data) {
+        var icm = $('<li class="active"></li>');
+        $('#incomingChatMessages').append(icm.text(data.message));
+        setTimeout(function() { icm.removeClass('active') }, 1500);
+        $('#chat-ctnr').scrollTop($('#incomingChatMessages').height() + 100 );
+      });
+      iosocket.on('disconnect', function() {
+        iosocket.on('message', null);
+          $('#incomingChatMessages').append('<li class="alert">Disconnected</li>');
+        });
+      });
+
+      //send new chat message
+      function sendMsg(answer) {
+        iosocket.emit('newChatMsg', {message: answer});
+        var ocm = $('<li class="active"></li>');
+        $('#incomingChatMessages').append(ocm.text(answer));
+        $('#chat-ctnr').scrollTop($('#incomingChatMessages').height() + 100 );
+        setTimeout(function() { ocm.removeClass('active') }, 1500);
+        $('#outgoingChatMessage').val('');
+      }
+
+    function sendAdd(){
+      
+      console.log('Addition ->');
+
+      var url = 'https://965a7984b21d445c8567a68f65ddf06fa69a8522.cloudapp.appcelerator.com/add?one=' + $('#oneValue').val()
+                 + '&two=' +  $('#twoValue').val();
+
+      console.log(url);
+      $.getJSON(url, 
+                function(data) { console.log('from rest ' + data.value); sendMsg(data.value); });
+    }
+
+      
+    function sendSub(){
+      
+      console.log('Subtraction - > ');
+
+      var url = 'https://965a7984b21d445c8567a68f65ddf06fa69a8522.cloudapp.appcelerator.com/sub?one=' + $('#oneValue').val()
+                 + '&two=' +  $('#twoValue').val();
+
+      console.log(url);
+      $.getJSON(url, 
+                function(data) { console.log('from rest ' + data.value); sendMsg(data.value); });
+    }
+
+    function sendMul(){
+      
+      console.log('Multiplication ->');
+
+      var url = 'https://965a7984b21d445c8567a68f65ddf06fa69a8522.cloudapp.appcelerator.com/mul?one=' + $('#oneValue').val()
+                 + '&two=' +  $('#twoValue').val();
+
+      console.log(url);
+      $.getJSON(url, 
+                function(data) { console.log('from rest ' + data.value); sendMsg(data.value); });
+    }
+
+    function sendDiv(){
+      
+      console.log('Division ->');
+
+      var url = 'https://965a7984b21d445c8567a68f65ddf06fa69a8522.cloudapp.appcelerator.com/div?one=' + $('#oneValue').val()
+                 + '&two=' +  $('#twoValue').val();
+
+      console.log(url);
+      $.getJSON(url, 
+                function(data) { console.log('from rest ' + data.value); sendMsg(data.value); });
+    }
+
+
+    </script>
+  </head>
+  <body>
+    <div id="ic">Calculator</div>
+    <div id="chat-ctnr">
+      <ul id="incomingChatMessages"></ul>
+    </div>
+
+        <br />
+
+    <table>
+
+      <tr>
+        <td><input type="text" id="oneValue"></td>
+        <td><input type="text" id="twoValue"></td>
+      </tr>
+      <tr>
+        <td><input id="addButton" type="button" value="Addition" onclick='sendAdd()'></td>
+        <td><input id="subButton" type="button" value="Subtraction" onclick='sendSub()'></td>
+      </tr>
+      <tr>
+        <td><input id="mulButton" type="button" value="Multiplication" onclick='sendMul()'></td>
+        <td><input id="divButton" type="button" value="Division" onclick='sendDiv()'></td>
+      </tr>
+    </table>
+
+
+  </body>
+</html>
