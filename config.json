@@ -1,7 +1,12 @@
 {
     "routes":
             [
-                {"path": "/", "method": "get", "callback": "application#chatroom"}
+                {"path": "/", "method": "get", "callback": "application#calculator"},
+
+                {"path": "/add", "method": "get", "callback": "calculator#add"},
+                {"path": "/sub", "method": "get", "callback": "calculator#sub"},
+                {"path": "/mul", "method": "get", "callback": "calculator#mul"},
+                {"path": "/div", "method": "get", "callback": "calculator#div"}
             ],
     "websockets":
             [
