@@ -1,108 +1,151 @@
 var assert = require('assert');
+var http = require('http');
+var https = require('https');
 
-function add(one, two) {
-    if (isNaN(one) || isNaN(two))
-        return 'Not a number!';
-    return one + two;
-}
+function add(one, two, val) {
+    url = 'http://localhost:8080/add?one=' + one + '&two=' + two;
+    console.log(url);
+    result = '{\n  \"value\": ' + val + '\n}';
 
-function sub(one, two) {
-    if (isNaN(one) || isNaN(two))
-        return 'Not a number!';
-    return one - two;
-}
-
-function mul(one, two) {
-    if (isNaN(one) || isNaN(two))
-        return 'Not a number!';
-    return one * two;
-}
-
-function div(one, two) {
-    if (isNaN(one) || isNaN(two))
-        return 'Not a number!';
-    if (two == 0)
-        return 'Cannot divide by 0!';
-    else
-        return one / two;
-}
-
-describe('add', function(){
-    it('should return sum', function(){
-      assert.equal(8, add(3,5));
-      assert.equal(-3.787, add(6.983, -10.77));
-      
-      a = 'abc';
-      b = 12.0;
-      c = 'monkey';
-      d = '@#$*%(';
-      
-      assert.equal('Not a number!', add(a,b));
-      assert.equal('Not a number!', add(b,c));
-      assert.equal('Not a number!', add(a,c));
-      assert.equal('Not a number!', add(a,d));
-      assert.equal('Not a number!', add("",""));
-      
-      assert.equal(12.24, add(3.14,9.1));
-      
+    it('should return 200', function(done) {
+        http.get(url, function(res) {
+            assert.equal(200, res.statusCode);
+            var data = '';
+            res.on('data', function(chunk) {
+                data += chunk;
+            });
+            res.on('end', function() {
+                assert.equal(result, data);
+                console.log(data);
+                done();
+            });
+        });
     });
+}
+
+
+function sub(one, two, val) {
+    url = 'http://localhost:8080/sub?one=' + one + '&two=' + two;
+    console.log(url);
+    result = '{\n  \"value\": ' + val + '\n}';
+
+    it('should return 200', function(done) {
+        http.get(url, function(res) {
+            assert.equal(200, res.statusCode);
+            var data = '';
+            res.on('data', function(chunk) {
+                data += chunk;
+            });
+            res.on('end', function() {
+                assert.equal(result, data);
+                console.log(data);
+                done();
+            });
+        });
+    });
+}
+
+
+function mul(one, two, val) {
+    url = 'http://localhost:8080/mul?one=' + one + '&two=' + two;
+    console.log(url);
+    result = '{\n  \"value\": ' + val + '\n}';
+
+    it('should return 200', function(done) {
+        http.get(url, function(res) {
+            assert.equal(200, res.statusCode);
+            var data = '';
+            res.on('data', function(chunk) {
+                data += chunk;
+            });
+            res.on('end', function() {
+                assert.equal(result, data);
+                console.log(data);
+                done();
+            });
+        });
+    });
+}
+
+
+
+function div(one, two, val) {
+    url = 'http://localhost:8080/div?one=' + one + '&two=' + two;
+    console.log(url);
+    result = '{\n  \"value\": ' + val + '\n}';
+
+    it('should return 200', function(done) {
+        http.get(url, function(res) {
+            assert.equal(200, res.statusCode);
+            var data = '';
+            res.on('data', function(chunk) {
+                data += chunk;
+            });
+            res.on('end', function() {
+                assert.equal(result, data);
+                console.log(data);
+                done();
+            });
+        });
+    });
+}
+
+describe('Addition api test', function() {
+    a = 'abc';
+    b = 12.0;
+    c = 'monkey';
+    d = '@#$*%(';
+    add(10, 900, 910);
+    add(900, 10, 910);
+    add(3.14, 9.1, 12.24);
+    add(a, b, '\"Not a number!\"');
+    add(a, c, '\"Not a number!\"');
+    add(c, d, '\"Not a number!\"');
+    add("", "", '\"Not a number!\"');
 });
 
-describe('sub', function(){
-    it('should return balance', function(){
-      assert.equal(-2, sub(3,5));
-      assert.equal(2.04, sub(3.33, 1.29));
-      
-      a = 'abc';
-      b = 10;
-      c = 'monkey';
-      d = '@#$*%(';
-      assert.equal('Not a number!', sub(a,b));
-      assert.equal('Not a number!', sub(b,c));
-      assert.equal('Not a number!', sub(a,c));
-      assert.equal('Not a number!', sub(a,d));
-      assert.equal('Not a number!', sub("",""));
-    });
+
+describe('Subtraction api test', function() {
+    a = 'abc';
+    b = 12.0;
+    c = 'monkey';
+    d = '@#$*%(';
+    sub(100, 90, 10);
+    sub(90, 10, 80);
+    sub(3.14, 9, -6.14);
+    sub(a, b, '\"Not a number!\"');
+    sub(a, c, '\"Not a number!\"');
+    sub(c, d, '\"Not a number!\"');
+    sub("", "", '\"Not a number!\"');
 });
 
-describe('mul', function(){
-    it('should return product', function(){
-      assert.equal(15, mul(3,5));
-      assert.equal(28.574, mul(3.14,9.1));
-      
-      a = 'abc';
-      b = 10;
-      c = 'monkey';
-      d = '@#$*%(';
-      assert.equal('Not a number!', mul(a,b));
-      assert.equal('Not a number!', mul(b,c));
-      assert.equal('Not a number!', mul(a,c));
-      assert.equal('Not a number!', mul(a,d));
-      assert.equal('Not a number!', mul("",""));
-      
-      
-    });
+
+describe('Multiplication api test', function() {
+    a = 'abc';
+    b = 12.0;
+    c = 'monkey';
+    d = '@#$*%(';
+    mul(100, 90, 9000);
+    mul(90, 10, 900);
+    mul(3.14, 0, 0);
+    mul(a, b, '\"Not a number!\"');
+    mul(a, c, '\"Not a number!\"');
+    mul(c, d, '\"Not a number!\"');
+    mul("", "", '\"Not a number!\"');
 });
 
-describe('div', function(){
-    it('should return quotient', function(){
-      assert.equal(5, div(10,2));
-      assert.equal(0.3450549450549451, div(3.14,9.1));
-      assert.equal(0.34, div(3.14,9.1)); //fail 
-      
-      a = 'abc';
-      b = 10;
-      c = 'monkey';
-      d = '@#$*%(';
-      assert.equal('Not a number!', div(a,b));
-      assert.equal('Not a number!', div(b,c));
-      assert.equal('Not a number!', div(a,c));
-      
-      assert.equal('Not a number!', div(a,c));
-      assert.equal('Not a number!', div(a,d));
-      
-      assert.equal('Not a number!', div("",""));
-      
-      assert.equal('Cannot divide by 0!', div(3,0));
-    });
+
+
+describe('Division api test', function() {
+    a = 'abc';
+    b = 12.0;
+    c = 'monkey';
+    d = '@#$*%(';
+    div(100, 2.5, 40);
+    div(90, 10, 9);
+    div(3.14, 0, '\"Cannot divide by 0!\"');
+    div(a, b, '\"Not a number!\"');
+    div(a, c, '\"Not a number!\"');
+    div(c, d, '\"Not a number!\"');
+    div("", "", '\"Not a number!\"');
 });
