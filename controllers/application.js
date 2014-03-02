@@ -6,3 +6,8 @@
 function chatroom(req, res) {
     res.render('chatroom');
 }
+
+
+function calculator(req, res){
+    res.render('calcpage');
+}
