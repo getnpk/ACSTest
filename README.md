@@ -3,7 +3,11 @@
 ######Demo Application:
 [Hosted on ACS](https://965a7984b21d445c8567a68f65ddf06fa69a8522.cloudapp.appcelerator.com/)
 
-Please turn on scripts on browser.
+Please turn on scripts on your browser. Below is a screenshot for Google Chrome.
+
+![enabling scripts on browser](https://raw.github.com/getnpk/ACSTest/master/img/running_scripts.JPG)
+
+
 ######Features:
 - Addition
 - Subtraction
